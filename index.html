@@ -544,8 +544,6 @@ input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer;
               <button class="btn btn-ghost" style="font-size:.82rem" onclick="pulisciCampoPnr()">🗑 Pulisci schermata acquisizione</button>
               <button class="btn btn-primary" id="btnConfermaImport" style="display:none"
                       onclick="confermaPnr()">✅ Importa nel preventivo</button>
-              <div style="flex:1"></div>
-              <button class="btn btn-ghost" style="font-size:.82rem" onclick="pulisciTratte()">🗑 Pulisci tratte</button>
             </div>
           </div>
         </div>
@@ -568,6 +566,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer;
             </table>
           </div>
           <button class="btn-add" onclick="aggiungiTratta()">＋ Aggiungi tratta</button>
+          <button class="btn-add" onclick="pulisciTratte()" style="border-color:var(--red);color:var(--red)">✕ Pulisci tratte</button>
 
           <div class="voli-meta">
             <div>
