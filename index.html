@@ -5,25 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Preventivatore – Viaggi Voltaire</title>
 <style>
-/* ── RESET & VARS ─────────────────────────────── */
+/* ── RESET & VARS ─────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
   --navy:    #1a3a6b;
   --navy2:   #22508f;
+  --navy3:   #0f2548;
   --accent:  #2471c8;
   --light:   #e8f0fb;
   --white:   #ffffff;
-  --bg:      #f0f3f8;
+  --bg:      #eef1f7;
   --border:  #cdd7e8;
   --text:    #1c2a3a;
   --muted:   #5c7190;
   --red:     #c0392b;
   --redbg:   #fdecea;
-  --green:   #1a7a4a;
-  --row-alt: #f7f9fc;
-  --shadow:  0 2px 12px rgba(0,0,0,.08);
-  --radius:  10px;
+  --rowalt:  #f7f9fd;
+  --shadow:  0 2px 14px rgba(0,0,0,.09);
+  --radius:  11px;
 }
 
 body {
@@ -34,85 +34,63 @@ body {
   font-size: 14px;
 }
 
-/* ── HEADER ──────────────────────────────────── */
+/* ── HEADER ──────────────────────────────────────────── */
 header {
-  background: linear-gradient(120deg, var(--navy) 0%, var(--navy2) 100%);
+  background: linear-gradient(120deg, var(--navy3) 0%, var(--navy2) 100%);
   color: var(--white);
   padding: 0 2rem;
-  height: 60px;
+  height: 58px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 2px 14px rgba(0,0,0,.22);
+  box-shadow: 0 3px 16px rgba(0,0,0,.25);
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 200;
 }
-.logo { font-size: 1.5rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
+.logo { font-size: 1.45rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .logo em { color: #7eb8f7; font-style: normal; }
-.tagline { font-size: .72rem; opacity: .65; letter-spacing: .05em; }
+.tagline { font-size: .7rem; opacity: .6; letter-spacing: .06em; }
 
-/* ── PAGE SHELL ──────────────────────────────── */
-.page { max-width: 1400px; margin: 0 auto; padding: 1.4rem 1.2rem 3rem; }
+/* ── PAGE ────────────────────────────────────────────── */
+.page { max-width: 1440px; margin: 0 auto; padding: 1.3rem 1.2rem 4rem; }
 
-/* ── TOP BAR – dati viaggio ──────────────────── */
+/* ── TOP BAR ─────────────────────────────────────────── */
 .top-bar {
   background: var(--white);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 1.1rem 1.4rem;
+  padding: 1rem 1.4rem;
   display: flex;
-  gap: 1.2rem;
+  gap: 1rem;
   align-items: flex-end;
   flex-wrap: wrap;
   margin-bottom: 1.2rem;
 }
-.top-bar .field { display: flex; flex-direction: column; gap: .25rem; flex: 1; min-width: 160px; }
+.top-bar .field { display: flex; flex-direction: column; gap: .22rem; flex: 1; min-width: 140px; }
+.top-bar .field.narrow { max-width: 110px; }
 
-/* ── TWO-COLUMN LAYOUT ───────────────────────── */
-.columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.2rem;
-  align-items: start;
-}
-@media (max-width: 900px) { .columns { grid-template-columns: 1fr; } }
-
-/* ── CARD ────────────────────────────────────── */
-.card {
-  background: var(--white);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-.card-head {
-  background: var(--navy);
-  color: var(--white);
-  padding: .65rem 1.2rem;
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .09em;
-  text-transform: uppercase;
-}
-.card-body { padding: 1.1rem 1.2rem; }
-
-/* ── LABELS & INPUTS ─────────────────────────── */
+/* ── LABEL ───────────────────────────────────────────── */
 label {
-  font-size: .69rem;
+  font-size: .68rem;
   font-weight: 700;
   color: var(--muted);
-  letter-spacing: .05em;
+  letter-spacing: .06em;
   text-transform: uppercase;
 }
+
+/* ── INPUTS ──────────────────────────────────────────── */
 input[type="text"],
 input[type="number"],
 input[type="date"],
+input[type="time"],
+input[type="url"],
 select,
 textarea {
   width: 100%;
-  padding: .45rem .65rem;
+  padding: .44rem .65rem;
   border: 1.5px solid var(--border);
-  border-radius: 6px;
+  border-radius: 7px;
   font-size: .88rem;
   color: var(--text);
   background: var(--white);
@@ -124,160 +102,275 @@ input:focus, select:focus, textarea:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(36,113,200,.13);
 }
-textarea { resize: vertical; min-height: 52px; }
+textarea { resize: vertical; }
 
-/* ── SERVICES TABLE ──────────────────────────── */
-.services-scroll { overflow-x: auto; }
+/* ── TWO COLUMNS ─────────────────────────────────────── */
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  align-items: start;
+}
+@media (max-width: 960px) { .columns { grid-template-columns: 1fr; } }
 
-.svc-table {
+/* ── CARD ────────────────────────────────────────────── */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin-bottom: 1.2rem;
+}
+.card:last-child { margin-bottom: 0; }
+.card-head {
+  background: var(--navy);
+  color: var(--white);
+  padding: .6rem 1.2rem;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-body { padding: 1.1rem 1.2rem; }
+
+/* ── SERVICES TABLE ──────────────────────────────────── */
+.tbl-scroll { overflow-x: auto; }
+.svc-tbl {
   width: 100%;
   border-collapse: collapse;
-  min-width: 700px;
+  min-width: 820px;
 }
-.svc-table thead th {
+.svc-tbl thead th {
   background: var(--light);
   color: var(--navy);
-  font-size: .67rem;
+  font-size: .65rem;
   font-weight: 700;
-  letter-spacing: .06em;
+  letter-spacing: .07em;
   text-transform: uppercase;
-  padding: .5rem .55rem;
+  padding: .5rem .5rem;
   text-align: left;
   border-bottom: 2px solid var(--border);
   white-space: nowrap;
 }
-.svc-table tbody tr { border-bottom: 1px solid var(--border); }
-.svc-table tbody tr:nth-child(even) { background: var(--row-alt); }
-.svc-table tbody tr:last-child { border-bottom: none; }
-.svc-table tbody td { padding: .4rem .4rem; vertical-align: top; }
-.svc-table tbody td.td-del { text-align: center; vertical-align: middle; }
+.svc-tbl tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
+.svc-tbl tbody tr:nth-child(even) { background: var(--rowalt); }
+.svc-tbl tbody tr:hover { background: #f0f5fc; }
+.svc-tbl tbody tr:last-child { border-bottom: none; }
+.svc-tbl tbody td { padding: .38rem .42rem; vertical-align: top; }
 
-.svc-table input, .svc-table select, .svc-table textarea {
-  padding: .38rem .5rem;
-  font-size: .84rem;
+.svc-tbl input, .svc-tbl select, .svc-tbl textarea {
+  padding: .36rem .48rem;
+  font-size: .83rem;
 }
-.svc-table textarea { min-height: 42px; }
+.svc-tbl textarea { min-height: 40px; }
 
-/* column widths */
-.col-tipo    { width: 130px; }
-.col-forn    { min-width: 130px; }
-.col-datada  { width: 118px; }
-.col-dataa   { width: 118px; }
-.col-costo   { width: 105px; }
-.col-note    { min-width: 140px; }
-.col-del     { width: 36px; }
+.c-tipo  { width: 120px; }
+.c-forn  { min-width: 120px; }
+.c-da    { width: 112px; }
+.c-al    { width: 112px; }
+.c-costo { width: 100px; }
+.c-link  { min-width: 140px; }
+.c-note  { min-width: 140px; }
+.c-del   { width: 34px; text-align: center; }
 
-/* ── BTN REMOVE ──────────────────────────────── */
+/* ── BTN REMOVE ──────────────────────────────────────── */
 .btn-remove {
   background: none;
   border: none;
   cursor: pointer;
   color: var(--red);
-  font-size: 1rem;
-  padding: .3rem .45rem;
+  font-size: .95rem;
+  padding: .28rem .44rem;
   border-radius: 5px;
   transition: background .15s;
   line-height: 1;
+  vertical-align: middle;
 }
 .btn-remove:hover { background: var(--redbg); }
 
-/* ── BTN ADD ─────────────────────────────────── */
+/* ── BTN ADD ─────────────────────────────────────────── */
 .btn-add {
-  margin-top: .9rem;
+  margin-top: .85rem;
   display: inline-flex;
   align-items: center;
-  gap: .4rem;
+  gap: .38rem;
   background: var(--light);
   color: var(--navy);
   border: 1.5px dashed var(--accent);
   border-radius: 7px;
-  padding: .48rem 1.1rem;
-  font-size: .84rem;
+  padding: .46rem 1rem;
+  font-size: .83rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background .15s;
   font-family: inherit;
+  transition: background .15s;
 }
 .btn-add:hover { background: #d0e4f7; }
 
-/* ── SUMMARY (costi) ─────────────────────────── */
-.summary { margin-top: 1.2rem; border-top: 2px solid var(--border); padding-top: 1.1rem; }
-.summary-row {
+/* ── VOLI TRATTE ─────────────────────────────────────── */
+.tratte-wrap { overflow-x: auto; }
+.tratte-tbl {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 680px;
+}
+.tratte-tbl thead th {
+  background: var(--light);
+  color: var(--navy);
+  font-size: .64rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  padding: .45rem .45rem;
+  text-align: left;
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+.tratte-tbl tbody tr { border-bottom: 1px solid var(--border); }
+.tratte-tbl tbody tr:last-child { border-bottom: none; }
+.tratte-tbl tbody td { padding: .36rem .4rem; vertical-align: middle; }
+
+.tratte-tbl input, .tratte-tbl select {
+  padding: .34rem .46rem;
+  font-size: .83rem;
+}
+
+.t-data   { width: 108px; }
+.t-da     { min-width: 120px; }
+.t-a      { min-width: 120px; }
+.t-dep    { width: 82px; }
+.t-arr    { width: 100px; }
+.t-note   { min-width: 110px; }
+.t-del    { width: 34px; text-align: center; }
+
+/* +1 badge inside arrival time cell */
+.arr-wrap { display: flex; align-items: center; gap: .3rem; }
+.plus1-toggle {
+  flex-shrink: 0;
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 5px;
+  font-size: .7rem;
+  font-weight: 700;
+  color: var(--muted);
+  padding: .18rem .32rem;
+  cursor: pointer;
+  transition: all .15s;
+  line-height: 1;
+  white-space: nowrap;
+}
+.plus1-toggle.active {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
+}
+
+/* meta voli */
+.voli-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .8rem;
+  margin-top: 1rem;
+}
+
+/* ── COMPRENDE / NON COMPRENDE ───────────────────────── */
+.comprende-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.comprende-grid textarea { min-height: 110px; font-size: .85rem; }
+
+/* ── RIEPILOGO ───────────────────────────────────────── */
+.summary { border-top: 2px solid var(--border); padding-top: 1rem; margin-top: 1rem; }
+.s-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: .35rem 0;
+  padding: .32rem 0;
   border-bottom: 1px solid #edf1f7;
   font-size: .9rem;
 }
-.summary-row:last-child { border-bottom: none; }
-.summary-row .s-label { color: var(--muted); font-weight: 500; }
-.summary-row .s-value { font-weight: 700; color: var(--navy); }
-.summary-row.big .s-label { font-size: 1rem; color: var(--text); font-weight: 600; }
-.summary-row.big .s-value { font-size: 1.25rem; color: var(--navy); }
+.s-row:last-child { border-bottom: none; }
+.s-row .sl { color: var(--muted); font-weight: 500; }
+.s-row .sv { font-weight: 700; color: var(--navy); }
+.s-row.big .sl { font-size: .98rem; color: var(--text); font-weight: 600; }
+.s-row.big .sv { font-size: 1.22rem; }
 
-.markup-row { display: flex; flex-direction: column; gap: .45rem; margin: .6rem 0; }
-.markup-slider-line { display: flex; align-items: center; gap: .9rem; }
-input[type="range"] { flex: 1; accent-color: var(--accent); cursor: pointer; }
-.markup-pct { min-width: 46px; text-align: right; font-weight: 800; font-size: 1.1rem; color: var(--navy); }
-.markup-minmax { display: flex; justify-content: space-between; font-size: .68rem; color: var(--muted); }
+.markup-block { margin: .7rem 0; }
+.markup-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: .35rem; }
+.markup-pct { font-size: 1.08rem; font-weight: 800; color: var(--navy); }
+input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer; }
+.markup-minmax { display: flex; justify-content: space-between; font-size: .67rem; color: var(--muted); margin-top: .22rem; }
 
-/* ── ITINERARY ───────────────────────────────── */
+/* ── ITINERARIO ──────────────────────────────────────── */
 .itin-empty {
   text-align: center;
   color: var(--muted);
+  padding: 2.5rem 1rem;
+  line-height: 1.7;
   font-size: .88rem;
-  padding: 2rem 1rem;
-  line-height: 1.6;
 }
-.itin-empty .ico { font-size: 2rem; margin-bottom: .4rem; }
+.itin-empty .ico { font-size: 2.2rem; margin-bottom: .5rem; }
 
 .day-card {
   border: 1.5px solid var(--border);
-  border-radius: 8px;
-  margin-bottom: .85rem;
+  border-radius: 9px;
+  margin-bottom: .9rem;
   overflow: hidden;
+  transition: box-shadow .15s;
 }
 .day-card:last-child { margin-bottom: 0; }
+.day-card:hover { box-shadow: 0 3px 14px rgba(0,0,0,.1); }
+
 .day-head {
   background: var(--light);
-  padding: .5rem .85rem;
+  padding: .52rem .9rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: .5rem;
+  gap: .6rem;
+  flex-wrap: wrap;
 }
+.day-meta { display: flex; flex-direction: column; gap: .1rem; }
 .day-num {
-  font-size: .68rem;
+  font-size: .63rem;
   font-weight: 800;
-  letter-spacing: .07em;
+  letter-spacing: .09em;
   text-transform: uppercase;
   color: var(--accent);
 }
-.day-date { font-weight: 700; font-size: .9rem; color: var(--navy); }
+.day-date { font-weight: 700; font-size: .88rem; color: var(--navy); }
 .day-hotel {
   font-size: .76rem;
   color: var(--muted);
   display: flex;
   align-items: center;
-  gap: .3rem;
+  gap: .28rem;
+  font-weight: 500;
 }
-.day-hotel::before { content: '🏨'; font-size: .8rem; }
-.day-body { padding: .65rem .85rem; }
-.day-body label { display: block; margin-bottom: .3rem; }
+.day-hotel-icon { font-size: .8rem; }
 
-/* ── FOOTER BAR ──────────────────────────────── */
+.day-body { padding: .7rem .9rem; display: flex; flex-direction: column; gap: .65rem; }
+.day-field { display: flex; flex-direction: column; gap: .25rem; }
+.day-body textarea { font-size: .85rem; }
+.titolo-input { font-size: .88rem; font-weight: 600; }
+
+/* ── FOOTER ──────────────────────────────────────────── */
 .footer-bar {
-  margin-top: 1.4rem;
+  margin-top: 1.3rem;
   display: flex;
   justify-content: flex-end;
   gap: .8rem;
   flex-wrap: wrap;
 }
 .btn {
-  padding: .65rem 1.6rem;
+  padding: .62rem 1.55rem;
   border-radius: 8px;
-  font-size: .92rem;
+  font-size: .9rem;
   font-weight: 700;
   border: none;
   cursor: pointer;
@@ -289,104 +382,180 @@ input[type="range"] { flex: 1; accent-color: var(--accent); cursor: pointer; }
 }
 .btn:active { transform: scale(.97); }
 .btn-primary { background: var(--navy); color: var(--white); }
-.btn-primary:hover { background: var(--navy2); }
+.btn-primary:hover { background: var(--navy3); }
 .btn-ghost { background: var(--white); color: var(--navy); border: 2px solid var(--navy); }
 .btn-ghost:hover { background: var(--light); }
+
+/* ── BADGE "solo uso interno" ────────────────────────── */
+.badge-internal {
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 4px;
+  padding: .18rem .45rem;
+  color: rgba(255,255,255,.75);
+}
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════ HEADER ═══════════════════════ -->
+<!-- ══════════════════════ HEADER ══════════════════════ -->
 <header>
   <div class="logo">Voltaire<em>.</em></div>
-  <div class="tagline">Preventivatore · Viaggi Voltaire · Bergamo</div>
+  <div class="tagline">Preventivatore · Bergamo</div>
 </header>
 
 <div class="page">
 
-  <!-- ═══════════════ TOP BAR – dati viaggio ═══════════════ -->
+  <!-- ════════════════ TOP BAR — dati viaggio ═══════════ -->
   <div class="top-bar">
     <div class="field">
-      <label for="cliente">Nome cliente</label>
-      <input type="text" id="cliente" placeholder="Es. Mario Rossi" />
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" placeholder="Es. Marco" />
+    </div>
+    <div class="field">
+      <label for="cognome">Cognome</label>
+      <input type="text" id="cognome" placeholder="Es. Rossi" />
     </div>
     <div class="field">
       <label for="destinazione">Destinazione</label>
       <input type="text" id="destinazione" placeholder="Es. Giappone" />
     </div>
-    <div class="field" style="max-width:130px">
-      <label for="partecipanti">Partecipanti</label>
+    <div class="field narrow">
+      <label for="partecipanti">Persone</label>
       <input type="number" id="partecipanti" min="1" value="2" oninput="calcola()" />
     </div>
   </div>
 
-  <!-- ═══════════════════ TWO COLUMNS ═══════════════════════ -->
+  <!-- ══════════════════ TWO COLUMNS ════════════════════ -->
   <div class="columns">
 
-    <!-- ──────────────── COLONNA SINISTRA ──────────────── -->
-    <div>
+    <!-- ════════════ COLONNA SINISTRA ════════════════════ -->
+    <div id="colLeft">
+
+      <!-- ── SERVIZI ───────────────────────────────────── -->
       <div class="card">
         <div class="card-head">Servizi</div>
         <div class="card-body">
-
-          <div class="services-scroll">
-            <table class="svc-table">
+          <div class="tbl-scroll">
+            <table class="svc-tbl">
               <thead>
                 <tr>
-                  <th class="col-tipo">Tipo</th>
-                  <th class="col-forn">Fornitore</th>
-                  <th class="col-datada">Data da</th>
-                  <th class="col-dataa">Data a</th>
-                  <th class="col-costo">Costo netto €</th>
-                  <th class="col-note">Note operative</th>
-                  <th class="col-del"></th>
+                  <th class="c-tipo">Tipo</th>
+                  <th class="c-forn">Fornitore</th>
+                  <th class="c-da">Data da</th>
+                  <th class="c-al">Data a</th>
+                  <th class="c-costo">Costo netto €</th>
+                  <th class="c-link">Link / URL</th>
+                  <th class="c-note">Note operative <span class="badge-internal">interno</span></th>
+                  <th class="c-del"></th>
                 </tr>
               </thead>
               <tbody id="righeServizi"></tbody>
             </table>
           </div>
+          <button class="btn-add" onclick="aggiungiServizio()">＋ Aggiungi servizio</button>
+        </div>
+      </div>
 
-          <button class="btn-add" onclick="aggiungiRiga()">＋ Aggiungi servizio</button>
+      <!-- ── DETTAGLIO VOLI (appare se c'è almeno un Volo) ── -->
+      <div class="card" id="cardVoli" style="display:none">
+        <div class="card-head">
+          Dettaglio Voli
+          <span class="badge-internal">per il preventivo</span>
+        </div>
+        <div class="card-body">
+          <div class="tratte-wrap">
+            <table class="tratte-tbl">
+              <thead>
+                <tr>
+                  <th class="t-data">Data</th>
+                  <th class="t-da">Da</th>
+                  <th class="t-a">A</th>
+                  <th class="t-dep">Partenza</th>
+                  <th class="t-arr">Arrivo</th>
+                  <th class="t-note">Volo / Note</th>
+                  <th class="t-del"></th>
+                </tr>
+              </thead>
+              <tbody id="righeTratte"></tbody>
+            </table>
+          </div>
+          <button class="btn-add" onclick="aggiungiTratta()">＋ Aggiungi tratta</button>
 
-          <!-- ── RIEPILOGO COSTI ── -->
-          <div class="summary">
-            <div class="summary-row">
-              <span class="s-label">Totale costi netti</span>
-              <span class="s-value" id="totNetti">€ 0,00</span>
+          <div class="voli-meta">
+            <div>
+              <label>Compagnia aerea</label>
+              <input type="text" id="compagnia" placeholder="Es. Air China" style="margin-top:.25rem" />
             </div>
-
-            <div class="markup-row">
-              <div style="display:flex;justify-content:space-between;align-items:center">
-                <label style="text-transform:uppercase;font-size:.69rem;letter-spacing:.05em">Markup agenzia</label>
-                <span class="markup-pct" id="markupLabel">15%</span>
-              </div>
-              <div class="markup-slider-line">
-                <input type="range" id="markup" min="5" max="40" value="15" step="1"
-                       oninput="aggiornaMarkup()" />
-              </div>
-              <div class="markup-minmax"><span>5%</span><span>40%</span></div>
-            </div>
-
-            <div class="summary-row big">
-              <span class="s-label">Prezzo di vendita</span>
-              <span class="s-value" id="prezzoVendita">€ 0,00</span>
-            </div>
-            <div class="summary-row">
-              <span class="s-label">Margine lordo</span>
-              <span class="s-value" id="margine">€ 0,00</span>
-            </div>
-            <div class="summary-row">
-              <span class="s-label">Quota per persona</span>
-              <span class="s-value" id="quotaPersona">€ 0,00</span>
+            <div>
+              <label>Bagagli inclusi</label>
+              <input type="text" id="bagagli" placeholder="Es. 1 mano + 1 stiva a persona" style="margin-top:.25rem" />
             </div>
           </div>
+        </div>
+      </div>
 
-        </div><!-- /card-body -->
-      </div><!-- /card -->
-    </div><!-- /colonna sx -->
+      <!-- ── LA QUOTA COMPRENDE / NON COMPRENDE ─────────── -->
+      <div class="card">
+        <div class="card-head">La quota comprende / non comprende</div>
+        <div class="card-body">
+          <div class="comprende-grid">
+            <div>
+              <label style="display:block;margin-bottom:.3rem">✅ La quota comprende</label>
+              <textarea id="comprende" rows="6"
+                placeholder="Es.&#10;Voli aerei come da operativo&#10;Pernottamenti in hotel indicati&#10;Assicurazione medico/bagaglio"></textarea>
+            </div>
+            <div>
+              <label style="display:block;margin-bottom:.3rem">❌ Non sono inclusi</label>
+              <textarea id="nonComprende" rows="6"
+                placeholder="Es.&#10;Tutti i pasti&#10;Trasferimenti aeroportuali&#10;Extra personali e mance"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <!-- ──────────────── COLONNA DESTRA ──────────────── -->
-    <div>
+      <!-- ── RIEPILOGO COSTI ─────────────────────────────── -->
+      <div class="card">
+        <div class="card-head">Riepilogo costi</div>
+        <div class="card-body">
+          <div class="s-row">
+            <span class="sl">Totale costi netti</span>
+            <span class="sv" id="totNetti">€ 0,00</span>
+          </div>
+
+          <div class="markup-block">
+            <div class="markup-top">
+              <label>Markup agenzia</label>
+              <span class="markup-pct" id="markupLabel">15%</span>
+            </div>
+            <input type="range" id="markup" min="5" max="40" value="15" step="1"
+                   oninput="aggiornaMarkup()" />
+            <div class="markup-minmax"><span>5%</span><span>40%</span></div>
+          </div>
+
+          <div class="s-row big">
+            <span class="sl">Prezzo di vendita</span>
+            <span class="sv" id="prezzoVendita">€ 0,00</span>
+          </div>
+          <div class="s-row">
+            <span class="sl">Margine lordo</span>
+            <span class="sv" id="margine">€ 0,00</span>
+          </div>
+          <div class="s-row big">
+            <span class="sl">Quota per persona</span>
+            <span class="sv" id="quotaPersona">€ 0,00</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /colLeft -->
+
+    <!-- ════════════ COLONNA DESTRA ═══════════════════════ -->
+    <div id="colRight">
       <div class="card">
         <div class="card-head">Itinerario giorno per giorno</div>
         <div class="card-body" id="itinerario">
@@ -397,11 +566,11 @@ input[type="range"] { flex: 1; accent-color: var(--accent); cursor: pointer; }
           </div>
         </div>
       </div>
-    </div><!-- /colonna dx -->
+    </div>
 
   </div><!-- /columns -->
 
-  <!-- ═══════════════════ FOOTER ═══════════════════════════ -->
+  <!-- ══════════════════════ FOOTER ═════════════════════ -->
   <div class="footer-bar">
     <button class="btn btn-ghost" onclick="resetForm()">🗑 Svuota tutto</button>
     <button class="btn btn-primary" onclick="generaCanva()">✨ Genera preventivo Canva</button>
@@ -409,74 +578,144 @@ input[type="range"] { flex: 1; accent-color: var(--accent); cursor: pointer; }
 
 </div><!-- /page -->
 
-<!-- ════════════════════════ JS ════════════════════════════ -->
+<!-- ══════════════════════════ JS ══════════════════════ -->
 <script>
-const TIPI = ['Volo','Hotel','Treno','Bus','Assicurazione','Escursione','Transfer','Altro'];
-let rigaId = 0;
-// Mappa id-riga → note itinerario per giorno (persistenza durante rebuild)
-let noteItinerario = {};  // key: "YYYY-MM-DD" → testo
+/* ──────────────────────────────────────────────────────
+   COSTANTI
+────────────────────────────────────────────────────── */
+const TIPI_SERVIZIO = ['Volo','Hotel','Treno','Bus','Assicurazione','Escursione','Transfer','Altro'];
+let svcId    = 0;
+let trattaId = 0;
+let noteItinerario = {};  // ISO date → { titolo, note }
 
-/* ═══ RIGHE SERVIZI ══════════════════════════════════════ */
-function aggiungiRiga(data = {}) {
-  const id = rigaId++;
-  const { tipo='', fornitore='', dataDa='', dataA='', costo='', noteOp='' } = data;
+/* ──────────────────────────────────────────────────────
+   SERVIZI
+────────────────────────────────────────────────────── */
+function aggiungiServizio(d = {}) {
+  const id = svcId++;
+  const { tipo='', fornitore='', dataDa='', dataA='', costo='', link='', noteOp='' } = d;
 
-  const opts = TIPI.map(t =>
+  const opts = TIPI_SERVIZIO.map(t =>
     `<option value="${t}"${t===tipo?' selected':''}>${t}</option>`
   ).join('');
 
   const tr = document.createElement('tr');
   tr.id = `svc-${id}`;
   tr.innerHTML = `
-    <td class="col-tipo">
-      <select onchange="onServiceChange()">${'<option value="">—</option>'}${opts}</select>
+    <td class="c-tipo">
+      <select onchange="onSvcChange()">
+        <option value="">—</option>${opts}
+      </select>
     </td>
-    <td class="col-forn">
-      <input type="text" placeholder="Fornitore" value="${fornitore}" />
+    <td class="c-forn">
+      <input type="text" placeholder="Es. Hilton, Alitalia…" value="${esc(fornitore)}" />
     </td>
-    <td class="col-datada">
-      <input type="date" value="${dataDa}" onchange="onServiceChange()" />
+    <td class="c-da">
+      <input type="date" value="${dataDa}" onchange="onSvcChange()" />
     </td>
-    <td class="col-dataa">
-      <input type="date" value="${dataA}" onchange="onServiceChange()" />
+    <td class="c-al">
+      <input type="date" value="${dataA}" onchange="onSvcChange()" />
     </td>
-    <td class="col-costo">
+    <td class="c-costo">
       <input type="number" min="0" step="0.01" placeholder="0.00"
              value="${costo}" oninput="calcola()" />
     </td>
-    <td class="col-note">
-      <textarea placeholder="Note interne…" rows="2">${noteOp}</textarea>
+    <td class="c-link">
+      <input type="url" placeholder="https://…" value="${esc(link)}" />
     </td>
-    <td class="td-del">
-      <button class="btn-remove" onclick="rimuoviRiga('svc-${id}')" title="Elimina">✕</button>
+    <td class="c-note">
+      <textarea rows="2" placeholder="Note interne…">${esc(noteOp)}</textarea>
+    </td>
+    <td class="c-del">
+      <button class="btn-remove" onclick="rimuoviSvc('svc-${id}')" title="Elimina">✕</button>
     </td>
   `;
   document.getElementById('righeServizi').appendChild(tr);
-  onServiceChange();
+  onSvcChange();
 }
 
-function rimuoviRiga(id) {
+function rimuoviSvc(id) {
   const el = document.getElementById(id);
-  if (el) { el.remove(); onServiceChange(); }
+  if (el) { el.remove(); onSvcChange(); }
 }
 
-/* ═══ LEGGI RIGHE ════════════════════════════════════════ */
 function leggiServizi() {
   return [...document.querySelectorAll('#righeServizi tr')].map(tr => {
-    const cells = tr.querySelectorAll('td');
+    const c = tr.querySelectorAll('td');
     return {
-      tipo:      cells[0].querySelector('select').value,
-      fornitore: cells[1].querySelector('input').value.trim(),
-      dataDa:    cells[2].querySelector('input').value,
-      dataA:     cells[3].querySelector('input').value,
-      costo:     parseFloat(cells[4].querySelector('input').value) || 0,
+      tipo:      c[0].querySelector('select').value,
+      fornitore: c[1].querySelector('input').value.trim(),
+      dataDa:    c[2].querySelector('input').value,
+      dataA:     c[3].querySelector('input').value,
+      costo:     parseFloat(c[4].querySelector('input').value) || 0,
+      link:      c[5].querySelector('input').value.trim(),
+      noteOp:    c[6].querySelector('textarea').value,
     };
   });
 }
 
-/* ═══ CALCOLI ════════════════════════════════════════════ */
-function calcola() {
+/* ──────────────────────────────────────────────────────
+   TRATTE VOLI
+────────────────────────────────────────────────────── */
+function aggiungiTratta(d = {}) {
+  const id = trattaId++;
+  const { data='', da='', a='', dep='', arr='', plusOne=false, note='' } = d;
+
+  const tr = document.createElement('tr');
+  tr.id = `tratta-${id}`;
+  tr.innerHTML = `
+    <td class="t-data">
+      <input type="date" value="${data}" />
+    </td>
+    <td class="t-da">
+      <input type="text" placeholder="Es. MXP / Milano" value="${esc(da)}" />
+    </td>
+    <td class="t-a">
+      <input type="text" placeholder="Es. KIX / Osaka" value="${esc(a)}" />
+    </td>
+    <td class="t-dep">
+      <input type="time" value="${dep}" />
+    </td>
+    <td class="t-arr">
+      <div class="arr-wrap">
+        <input type="time" value="${arr}" />
+        <button class="plus1-toggle${plusOne?' active':''}"
+                onclick="togglePlusOne(this)" title="+1 giorno">+1</button>
+      </div>
+    </td>
+    <td class="t-note">
+      <input type="text" placeholder="Es. CA712" value="${esc(note)}" />
+    </td>
+    <td class="t-del">
+      <button class="btn-remove" onclick="rimuoviTratta('tratta-${id}')" title="Elimina">✕</button>
+    </td>
+  `;
+  document.getElementById('righeTratte').appendChild(tr);
+}
+
+function rimuoviTratta(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+}
+
+function togglePlusOne(btn) {
+  btn.classList.toggle('active');
+}
+
+/* ──────────────────────────────────────────────────────
+   VISIBILITÀ CARD VOLI
+────────────────────────────────────────────────────── */
+function aggiornaCardVoli() {
   const servizi = leggiServizi();
+  const haVolo  = servizi.some(s => s.tipo === 'Volo');
+  document.getElementById('cardVoli').style.display = haVolo ? '' : 'none';
+}
+
+/* ──────────────────────────────────────────────────────
+   CALCOLI
+────────────────────────────────────────────────────── */
+function calcola() {
+  const servizi  = leggiServizi();
   const totNetti = servizi.reduce((s, r) => s + r.costo, 0);
   const markup   = parseFloat(document.getElementById('markup').value) / 100;
   const pax      = parseInt(document.getElementById('partecipanti').value) || 1;
@@ -484,10 +723,10 @@ function calcola() {
   const margine  = vendita - totNetti;
   const quota    = vendita / pax;
 
-  set('totNetti',      fmt(totNetti));
-  set('prezzoVendita', fmt(vendita));
-  set('margine',       fmt(margine));
-  set('quotaPersona',  fmt(quota));
+  setTxt('totNetti',      fmt(totNetti));
+  setTxt('prezzoVendita', fmt(vendita));
+  setTxt('margine',       fmt(margine));
+  setTxt('quotaPersona',  fmt(quota));
 }
 
 function aggiornaMarkup() {
@@ -496,19 +735,21 @@ function aggiornaMarkup() {
   calcola();
 }
 
-/* ═══ ITINERARIO ═════════════════════════════════════════ */
-function onServiceChange() {
+/* ──────────────────────────────────────────────────────
+   ITINERARIO
+────────────────────────────────────────────────────── */
+function onSvcChange() {
   calcola();
+  aggiornaCardVoli();
   buildItinerario();
 }
 
 function buildItinerario() {
   const servizi = leggiServizi();
-  const box = document.getElementById('itinerario');
+  const box     = document.getElementById('itinerario');
 
-  // Cerca il volo per le date master
+  // Volo master per le date
   const volo = servizi.find(s => s.tipo === 'Volo' && s.dataDa && s.dataA);
-
   if (!volo) {
     box.innerHTML = `
       <div class="itin-empty">
@@ -526,12 +767,17 @@ function buildItinerario() {
     return;
   }
 
-  // Hotel attivi per ogni data → fornitore
+  // Hotel per ogni giorno
   const hotels = servizi.filter(s => s.tipo === 'Hotel' && s.dataDa && s.dataA);
 
-  // Salva note esistenti prima di rebuilddare
-  box.querySelectorAll('.day-body textarea').forEach(ta => {
-    noteItinerario[ta.dataset.date] = ta.value;
+  // Salva note esistenti
+  box.querySelectorAll('[data-date]').forEach(el => {
+    const iso = el.dataset.date;
+    if (!noteItinerario[iso]) noteItinerario[iso] = {};
+    if (el.classList.contains('field-titolo'))
+      noteItinerario[iso].titolo = el.value;
+    if (el.classList.contains('field-note'))
+      noteItinerario[iso].note = el.value;
   });
 
   const frag = document.createDocumentFragment();
@@ -539,11 +785,11 @@ function buildItinerario() {
   let cursor = new Date(start);
 
   while (cursor <= end) {
-    const iso   = toISO(cursor);
-    const label = cursor.toLocaleDateString('it-IT', { weekday:'long', day:'2-digit', month:'long', year:'numeric' });
+    const iso     = toISO(cursor);
+    const label   = cursor.toLocaleDateString('it-IT',
+      { weekday:'long', day:'2-digit', month:'long', year:'numeric' });
     const labelCap = label.charAt(0).toUpperCase() + label.slice(1);
 
-    // Hotel della notte: copre cursor e almeno il giorno dopo
     const hotel = hotels.find(h => {
       const hS = parseDate(h.dataDa);
       const hE = parseDate(h.dataA);
@@ -551,30 +797,42 @@ function buildItinerario() {
     });
 
     const hotelHtml = hotel
-      ? `<div class="day-hotel">${hotel.fornitore || 'Hotel senza nome'}</div>`
-      : `<div class="day-hotel" style="opacity:.45">Nessun hotel</div>`;
+      ? `<div class="day-hotel"><span class="day-hotel-icon">🏨</span>${esc(hotel.fornitore || 'Hotel')}</div>`
+      : `<div class="day-hotel" style="opacity:.4"><span class="day-hotel-icon">🏨</span>Nessun hotel</div>`;
 
-    const savedNote = noteItinerario[iso] || '';
+    const savedTitolo = noteItinerario[iso]?.titolo || '';
+    const savedNote   = noteItinerario[iso]?.note   || '';
 
     const div = document.createElement('div');
     div.className = 'day-card';
     div.innerHTML = `
       <div class="day-head">
-        <div>
+        <div class="day-meta">
           <div class="day-num">Giorno ${dayNum}</div>
           <div class="day-date">${labelCap}</div>
         </div>
         ${hotelHtml}
       </div>
       <div class="day-body">
-        <label>Note itinerario (per Claude)</label>
-        <textarea data-date="${iso}" rows="3"
-          placeholder="Es. Mattina visita al tempio, pomeriggio arrivo a Kyoto…"
-        >${escHtml(savedNote)}</textarea>
+        <div class="day-field">
+          <label>Titolo tappa</label>
+          <input type="text"
+                 class="titolo-input field-titolo"
+                 data-date="${iso}"
+                 placeholder="Es. Partenza dall'Italia · Arrivo a Osaka"
+                 value="${esc(savedTitolo)}" />
+        </div>
+        <div class="day-field">
+          <label>Note per Claude ✦</label>
+          <textarea class="field-note"
+                    data-date="${iso}"
+                    rows="3"
+                    placeholder="Es. Mattina visita Dotonbori, pomeriggio check-in hotel, sera a disposizione…"
+          >${esc(savedNote)}</textarea>
+        </div>
       </div>
     `;
     frag.appendChild(div);
-
     cursor.setDate(cursor.getDate() + 1);
     dayNum++;
   }
@@ -583,39 +841,53 @@ function buildItinerario() {
   box.appendChild(frag);
 }
 
-/* ═══ ACTIONS ════════════════════════════════════════════ */
+/* ──────────────────────────────────────────────────────
+   ACTIONS
+────────────────────────────────────────────────────── */
 function resetForm() {
   if (!confirm('Svuotare tutto il preventivo?')) return;
-  document.getElementById('cliente').value      = '';
-  document.getElementById('destinazione').value = '';
+  ['nome','cognome','destinazione'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('partecipanti').value = 2;
   document.getElementById('markup').value       = 15;
   document.getElementById('markupLabel').textContent = '15%';
-  document.getElementById('righeServizi').innerHTML  = '';
+  document.getElementById('comprende').value    = '';
+  document.getElementById('nonComprende').value = '';
+  document.getElementById('compagnia').value    = '';
+  document.getElementById('bagagli').value      = '';
+  document.getElementById('righeServizi').innerHTML = '';
+  document.getElementById('righeTratte').innerHTML  = '';
   noteItinerario = {};
-  rigaId = 0;
-  onServiceChange();
-  // Aggiunge due righe default
-  aggiungiRiga({ tipo: 'Volo' });
-  aggiungiRiga({ tipo: 'Hotel' });
+  svcId = 0; trattaId = 0;
+  onSvcChange();
+  // Righe default
+  aggiungiServizio({ tipo: 'Volo' });
+  aggiungiServizio({ tipo: 'Hotel' });
 }
 
 function generaCanva() {
   alert('La generazione del preventivo Canva sarà disponibile dopo l\'integrazione con il backend.');
 }
 
-/* ═══ UTILS ══════════════════════════════════════════════ */
+/* ──────────────────────────────────────────────────────
+   UTILS
+────────────────────────────────────────────────────── */
 function fmt(n) {
   return '€ ' + n.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
-function set(id, v) { document.getElementById(id).textContent = v; }
-function parseDate(s) { return s ? new Date(s + 'T00:00:00') : null; }
-function toISO(d) { return d.toISOString().slice(0, 10); }
-function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function setTxt(id, v) { document.getElementById(id).textContent = v; }
+function parseDate(s)   { return s ? new Date(s + 'T00:00:00') : null; }
+function toISO(d)       { return d.toISOString().slice(0, 10); }
+function esc(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
 
-/* ═══ INIT ═══════════════════════════════════════════════ */
-aggiungiRiga({ tipo: 'Volo' });
-aggiungiRiga({ tipo: 'Hotel' });
+/* ──────────────────────────────────────────────────────
+   INIT
+────────────────────────────────────────────────────── */
+aggiungiServizio({ tipo: 'Volo' });
+aggiungiServizio({ tipo: 'Hotel' });
 calcola();
 </script>
 </body>
