@@ -386,85 +386,6 @@ input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer;
 .btn-ghost { background: var(--white); color: var(--navy); border: 2px solid var(--navy); }
 .btn-ghost:hover { background: var(--light); }
 
-/* ── MODAL PNR ───────────────────────────────────────── */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(10,20,50,.55);
-  backdrop-filter: blur(3px);
-  z-index: 500;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-}
-.modal-overlay.open { display: flex; }
-.modal-box {
-  background: var(--white);
-  border-radius: 14px;
-  box-shadow: 0 24px 60px rgba(0,0,0,.25);
-  width: 100%;
-  max-width: 680px;
-  overflow: hidden;
-  animation: modalIn .2s ease;
-}
-@keyframes modalIn {
-  from { opacity: 0; transform: translateY(-18px) scale(.97); }
-  to   { opacity: 1; transform: none; }
-}
-.modal-head {
-  background: var(--navy);
-  color: var(--white);
-  padding: .85rem 1.3rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.modal-head h2 { font-size: 1rem; font-weight: 700; letter-spacing: .02em; }
-.modal-close {
-  background: none;
-  border: none;
-  color: rgba(255,255,255,.7);
-  font-size: 1.3rem;
-  cursor: pointer;
-  padding: .1rem .4rem;
-  border-radius: 5px;
-  transition: background .15s;
-}
-.modal-close:hover { background: rgba(255,255,255,.15); color: var(--white); }
-.modal-body { padding: 1.3rem; display: flex; flex-direction: column; gap: 1rem; }
-.modal-body textarea {
-  min-height: 200px;
-  font-family: 'Courier New', monospace;
-  font-size: .82rem;
-  line-height: 1.5;
-  background: #f8fafd;
-  resize: vertical;
-}
-.modal-footer {
-  padding: .9rem 1.3rem;
-  border-top: 1px solid var(--border);
-  display: flex;
-  justify-content: flex-end;
-  gap: .7rem;
-}
-.modal-section-title {
-  font-size: .75rem;
-  font-weight: 700;
-  letter-spacing: .07em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: -.1rem;
-}
-.modal-divider {
-  border-top: 1.5px solid var(--border);
-  margin: .2rem 0;
-}
-.modal-clean-row {
-  display: flex;
-  gap: .7rem;
-  flex-wrap: wrap;
-}
 
 .pnr-preview {
   background: var(--light);
@@ -478,68 +399,51 @@ input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer;
 .pnr-preview.visible { display: block; }
 .pnr-preview strong { color: var(--navy); }
 
-/* ── DROPDOWN nel card-head ──────────────────────────── */
-.head-dropdown { position: relative; }
-.btn-importa {
-  background: rgba(255,255,255,.15);
-  border: 1px solid rgba(255,255,255,.3);
-  color: var(--white);
-  border-radius: 6px;
-  padding: .25rem .75rem;
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .04em;
-  cursor: pointer;
-  font-family: inherit;
-  transition: background .15s;
+/* ── ACCORDION PNR ───────────────────────────────────── */
+.pnr-accordion-trigger {
+  width: 100%;
   display: flex;
   align-items: center;
-  gap: .35rem;
+  justify-content: space-between;
+  padding: .6rem 1.2rem;
+  background: var(--light);
+  border: none;
+  border-bottom: 1.5px solid var(--border);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  transition: background .15s;
   user-select: none;
 }
-.btn-importa:hover { background: rgba(255,255,255,.28); }
-.btn-importa .chevron { font-size: .6rem; transition: transform .2s; }
-.btn-importa.open .chevron { transform: rotate(180deg); }
+.pnr-accordion-trigger:hover { background: #dce8f8; }
+.pnr-accordion-trigger .acc-chevron {
+  font-size: .65rem;
+  transition: transform .25s ease;
+  color: var(--accent);
+}
+.pnr-accordion-trigger.open .acc-chevron { transform: rotate(180deg); }
 
-.drop-menu {
-  display: none;
-  position: absolute;
-  top: calc(100% + 6px);
-  right: 0;
-  background: var(--white);
-  border: 1.5px solid var(--border);
-  border-radius: 9px;
-  box-shadow: 0 8px 28px rgba(0,0,0,.15);
-  min-width: 200px;
-  z-index: 300;
+.pnr-accordion-body {
+  max-height: 0;
   overflow: hidden;
-  animation: dropIn .15s ease;
+  transition: max-height .3s ease;
+  background: #f8fafd;
+  border-bottom: 0px solid var(--border);
 }
-.drop-menu.open { display: block; }
-@keyframes dropIn {
-  from { opacity:0; transform:translateY(-6px); }
-  to   { opacity:1; transform:none; }
+.pnr-accordion-body.open {
+  max-height: 700px;
+  border-bottom-width: 1.5px;
 }
-.drop-item {
+.pnr-accordion-inner {
+  padding: 1.1rem 1.2rem;
   display: flex;
-  align-items: center;
-  gap: .55rem;
-  padding: .65rem 1rem;
-  font-size: .84rem;
-  font-weight: 500;
-  color: var(--text);
-  cursor: pointer;
-  transition: background .12s;
-  border: none;
-  background: none;
-  width: 100%;
-  font-family: inherit;
-  text-align: left;
+  flex-direction: column;
+  gap: .9rem;
 }
-.drop-item:hover { background: var(--light); }
-.drop-item.danger { color: var(--red); }
-.drop-item.danger:hover { background: var(--redbg); }
-.drop-item + .drop-item { border-top: 1px solid var(--border); }
 
 /* ── BADGE "solo uso interno" ────────────────────────── */
 .badge-internal {
@@ -618,18 +522,35 @@ input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer;
 
       <!-- ── DETTAGLIO VOLI (appare se c'è almeno un Volo) ── -->
       <div class="card" id="cardVoli" style="display:none">
-        <div class="card-head">
-          <span>Dettaglio Voli</span>
-          <div class="head-dropdown" id="headDrop">
-            <button class="btn-importa" id="btnHeadDrop" onclick="toggleDropdown(event)">
-              Strumenti <span class="chevron">▼</span>
-            </button>
-            <div class="drop-menu" id="dropMenu">
-              <button class="drop-item" onclick="apriModalePnr()">📋 Importa da PNR / GDS</button>
-              <button class="drop-item danger" onclick="pulisciTratte()">🗑 Pulisci tratte volo</button>
+        <div class="card-head">Dettaglio Voli</div>
+
+        <!-- ── ACCORDION PNR ── -->
+        <button class="pnr-accordion-trigger" id="pnrAccTrigger" onclick="toggleAccordion()">
+          <span>📋 Strumenti PNR / GDS</span>
+          <span class="acc-chevron">▼</span>
+        </button>
+        <div class="pnr-accordion-body" id="pnrAccBody">
+          <div class="pnr-accordion-inner">
+            <div>
+              <label style="display:block;margin-bottom:.4rem">Incolla il PNR Amadeus o lo scraping low-cost (Ryanair / EasyJet)</label>
+              <textarea id="pnrInput" spellcheck="false" rows="6"
+                style="font-family:'Courier New',monospace;font-size:.82rem;background:#fff;line-height:1.5"
+                placeholder=" 1.ROSSI/MARIOMR&#10;  3  CA  712 Y 21NOV 6 MXPPVG HK2  1130 0550+1&#10;  4  CA  837 Y 22NOV 7 PVGKIX HK2  1130 1500&#10;TOTALS                     EUR    2185.00"></textarea>
+            </div>
+            <div id="pnrPreview" class="pnr-preview"></div>
+            <div style="display:flex;gap:.7rem;flex-wrap:wrap;align-items:center">
+              <button class="btn" style="background:#e8f0fb;color:var(--navy);border:1.5px solid var(--border)"
+                      onclick="analizzaPnr()">🔍 Analizza</button>
+              <button class="btn btn-primary" id="btnConfermaImport" style="display:none"
+                      onclick="confermaPnr()">✅ Importa nel preventivo</button>
+              <div style="flex:1"></div>
+              <button class="btn btn-ghost" style="font-size:.82rem" onclick="pulisciTratte()">🗑 Pulisci tratte</button>
+              <button class="btn btn-ghost" style="font-size:.82rem;color:var(--red);border-color:var(--red)"
+                      onclick="pulisciTutto()">✕ Pulisci tutto</button>
             </div>
           </div>
         </div>
+
         <div class="card-body">
           <div class="tratte-wrap">
             <table class="tratte-tbl">
@@ -741,49 +662,6 @@ input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer;
 
 </div><!-- /page -->
 
-<!-- ══════════════════════ MODAL PNR ══════════════════ -->
-<div class="modal-overlay" id="modalePnr" onclick="chiudiModaleSeFuori(event)">
-  <div class="modal-box">
-    <div class="modal-head">
-      <h2>Strumenti volo</h2>
-      <button class="modal-close" onclick="chiudiModalePnr()">✕</button>
-    </div>
-    <div class="modal-body">
-
-      <!-- sezione IMPORTA -->
-      <div class="modal-section-title">📋 Importa da PNR / GDS</div>
-      <div>
-        <label style="display:block;margin-bottom:.4rem">Incolla il testo del PNR (Amadeus) o lo scraping low-cost (Ryanair / EasyJet)</label>
-        <textarea id="pnrInput" spellcheck="false"
-          placeholder="Es. Amadeus:&#10; 1.ROSSI/MARIOMR&#10;  3  CA  712 Y 21NOV 6 MXPPVG HK2  1130 0550+1&#10;  4  CA  837 Y 22NOV 7 PVGKIX HK2  1130 1500&#10;TOTALS                     EUR    2185.00"></textarea>
-      </div>
-      <div id="pnrPreview" class="pnr-preview"></div>
-
-      <!-- separatore -->
-      <div class="modal-divider"></div>
-
-      <!-- sezione PULISCI -->
-      <div class="modal-section-title">🗑 Pulisci</div>
-      <div class="modal-clean-row">
-        <button class="btn btn-ghost" style="flex:1" onclick="pulisciTratte(); chiudiModalePnr()">
-          Pulisci tratte volo
-        </button>
-        <button class="btn btn-ghost" style="flex:1;color:var(--red);border-color:var(--red)"
-                onclick="pulisciTutto()">
-          Pulisci intera schermata
-        </button>
-      </div>
-
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="chiudiModalePnr()">Chiudi</button>
-      <button class="btn" style="background:#e8f0fb;color:var(--navy);border:1.5px solid var(--border)"
-              onclick="analizzaPnr()">🔍 Analizza</button>
-      <button class="btn btn-primary" id="btnConfermaImport" style="display:none"
-              onclick="confermaPnr()">✅ Importa nel preventivo</button>
-    </div>
-  </div>
-</div>
 
 <!-- Airport dictionary (5000+ IATA codes) -->
 <script src="airports.js"></script>
@@ -1236,33 +1114,17 @@ function parseLowCostPrice(txt) {
   return null;
 }
 
-/* ── DROPDOWN ── */
-function toggleDropdown(e) {
-  e.stopPropagation();
-  const btn  = document.getElementById('btnHeadDrop');
-  const menu = document.getElementById('dropMenu');
-  const open = menu.classList.toggle('open');
-  btn.classList.toggle('open', open);
-}
-document.addEventListener('click', () => {
-  document.getElementById('dropMenu')?.classList.remove('open');
-  document.getElementById('btnHeadDrop')?.classList.remove('open');
-});
-
-/* ── UI MODAL ── */
-function apriModalePnr() {
-  // chiudi dropdown
-  document.getElementById('dropMenu')?.classList.remove('open');
-  document.getElementById('btnHeadDrop')?.classList.remove('open');
-  document.getElementById('modalePnr').classList.add('open');
-  document.getElementById('pnrPreview').className = 'pnr-preview';
-  document.getElementById('btnConfermaImport').style.display = 'none';
-}
-function chiudiModalePnr() {
-  document.getElementById('modalePnr').classList.remove('open');
-}
-function chiudiModaleSeFuori(e) {
-  if (e.target === document.getElementById('modalePnr')) chiudiModalePnr();
+/* ── ACCORDION PNR ── */
+function toggleAccordion() {
+  const trigger = document.getElementById('pnrAccTrigger');
+  const body    = document.getElementById('pnrAccBody');
+  const isOpen  = body.classList.toggle('open');
+  trigger.classList.toggle('open', isOpen);
+  if (!isOpen) {
+    // reset anteprima quando si chiude
+    document.getElementById('pnrPreview').className = 'pnr-preview';
+    document.getElementById('btnConfermaImport').style.display = 'none';
+  }
 }
 
 /* ── PULISCI ── */
@@ -1275,7 +1137,6 @@ function pulisciTratte() {
 }
 function pulisciTutto() {
   if (!confirm('Svuotare tutta la schermata?')) return;
-  chiudiModalePnr();
   resetForm();
 }
 
@@ -1293,7 +1154,7 @@ function analizzaPnr() {
 
   if (!_parsedFlights.length) {
     preview.className = 'pnr-preview visible';
-    preview.innerHTML = '❌ Nessun volo rilevato. Controlla il formato del testo.';
+    preview.innerHTML = '❌ Nessun volo rilevato. Controlla il formato del testo incollato.';
     btnOk.style.display = 'none';
     return;
   }
