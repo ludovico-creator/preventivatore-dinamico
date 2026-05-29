@@ -541,12 +541,11 @@ input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer;
             <div style="display:flex;gap:.7rem;flex-wrap:wrap;align-items:center">
               <button class="btn" style="background:#e8f0fb;color:var(--navy);border:1.5px solid var(--border)"
                       onclick="analizzaPnr()">🔍 Analizza</button>
+              <button class="btn btn-ghost" style="font-size:.82rem" onclick="pulisciCampoPnr()">🗑 Pulisci schermata acquisizione</button>
               <button class="btn btn-primary" id="btnConfermaImport" style="display:none"
                       onclick="confermaPnr()">✅ Importa nel preventivo</button>
               <div style="flex:1"></div>
               <button class="btn btn-ghost" style="font-size:.82rem" onclick="pulisciTratte()">🗑 Pulisci tratte</button>
-              <button class="btn btn-ghost" style="font-size:.82rem;color:var(--red);border-color:var(--red)"
-                      onclick="pulisciTutto()">✕ Pulisci tutto</button>
             </div>
           </div>
         </div>
@@ -1157,9 +1156,10 @@ function pulisciTratte() {
   document.getElementById('bagagli').value   = '';
   showToast('🗑 Tratte volo svuotate');
 }
-function pulisciTutto() {
-  if (!confirm('Svuotare tutta la schermata?')) return;
-  resetForm();
+function pulisciCampoPnr() {
+  document.getElementById('pnrInput').value = '';
+  document.getElementById('pnrPreview').className = 'pnr-preview';
+  document.getElementById('btnConfermaImport').style.display = 'none';
 }
 
 function analizzaPnr() {
