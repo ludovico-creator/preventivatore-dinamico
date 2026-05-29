@@ -1081,15 +1081,37 @@ function parseAmadeusFlights(txt) {
 }
 
 function parseAmadeusPrice(txt) {
-  for (const line of txt.split('\n')) {
+  const lines = txt.split('\n');
+
+  // Strategia 1: riga con keyword TOTALS
+  for (const line of lines) {
     if (/\bTOTALS?\b/i.test(line)) {
-      const m = line.match(/([\d\.,]+)\s*$/);
+      const m = line.match(/([\d\.,]+)\s*$/) || line.match(/([\d\.,]+)\s*[A-Z]{0,3}\s*$/);
       if (m) {
-        const v = parseFloat(m[1].replace(',', '.'));
+        let val = m[1].replace(',', '.');
+        val = val.replace(/[\.,]$/, '');
+        const v = parseFloat(val);
         if (!isNaN(v)) return v;
       }
     }
   }
+
+  // Strategia 2: FXB — riga "EUR  NNN.NN" senza suffisso tasse
+  let fxbTotal = null;
+  for (const line of lines) {
+    const m = line.match(/^\s*EUR\s+([\d\.]+)\s*$/);
+    if (m) { const v = parseFloat(m[1]); if (!isNaN(v)) fxbTotal = v; }
+  }
+  if (fxbTotal !== null) return fxbTotal;
+
+  // Strategia 3: FXB con breakdown — prende il valore EUR più alto
+  let maxEur = null;
+  for (const line of lines) {
+    const m = line.match(/^\s*EUR\s+([\d]+\.[\d]{2})/);
+    if (m) { const v = parseFloat(m[1]); if (!isNaN(v) && (maxEur === null || v > maxEur)) maxEur = v; }
+  }
+  if (maxEur !== null) return maxEur;
+
   return null;
 }
 
