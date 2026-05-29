@@ -1199,7 +1199,7 @@ function confermaPnr() {
   // 1. Svuota tratte e popola
   document.getElementById('righeTratte').innerHTML = '';
   trattaId = 0;
-  _parsedFlights.forEach(f => aggiungiTratta(f));
+  _parsedFlights.forEach(f => aggiungiTratta({ ...f, data: f.iso }));
 
   // 2. Compagnia aerea
   if (_parsedCarrier) document.getElementById('compagnia').value = _parsedCarrier;
