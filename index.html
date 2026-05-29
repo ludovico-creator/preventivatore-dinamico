@@ -448,6 +448,24 @@ input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer;
   justify-content: flex-end;
   gap: .7rem;
 }
+.modal-section-title {
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: -.1rem;
+}
+.modal-divider {
+  border-top: 1.5px solid var(--border);
+  margin: .2rem 0;
+}
+.modal-clean-row {
+  display: flex;
+  gap: .7rem;
+  flex-wrap: wrap;
+}
+
 .pnr-preview {
   background: var(--light);
   border-radius: 8px;
@@ -460,7 +478,8 @@ input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer;
 .pnr-preview.visible { display: block; }
 .pnr-preview strong { color: var(--navy); }
 
-/* ── BTN IMPORTA (nel card-head) ─────────────────────── */
+/* ── DROPDOWN nel card-head ──────────────────────────── */
+.head-dropdown { position: relative; }
 .btn-importa {
   background: rgba(255,255,255,.15);
   border: 1px solid rgba(255,255,255,.3);
@@ -475,9 +494,52 @@ input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer;
   transition: background .15s;
   display: flex;
   align-items: center;
-  gap: .3rem;
+  gap: .35rem;
+  user-select: none;
 }
 .btn-importa:hover { background: rgba(255,255,255,.28); }
+.btn-importa .chevron { font-size: .6rem; transition: transform .2s; }
+.btn-importa.open .chevron { transform: rotate(180deg); }
+
+.drop-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.15);
+  min-width: 200px;
+  z-index: 300;
+  overflow: hidden;
+  animation: dropIn .15s ease;
+}
+.drop-menu.open { display: block; }
+@keyframes dropIn {
+  from { opacity:0; transform:translateY(-6px); }
+  to   { opacity:1; transform:none; }
+}
+.drop-item {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .65rem 1rem;
+  font-size: .84rem;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition: background .12s;
+  border: none;
+  background: none;
+  width: 100%;
+  font-family: inherit;
+  text-align: left;
+}
+.drop-item:hover { background: var(--light); }
+.drop-item.danger { color: var(--red); }
+.drop-item.danger:hover { background: var(--redbg); }
+.drop-item + .drop-item { border-top: 1px solid var(--border); }
 
 /* ── BADGE "solo uso interno" ────────────────────────── */
 .badge-internal {
@@ -558,7 +620,15 @@ input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer;
       <div class="card" id="cardVoli" style="display:none">
         <div class="card-head">
           <span>Dettaglio Voli</span>
-          <button class="btn-importa" onclick="apriModalePnr()">📋 Importa da PNR</button>
+          <div class="head-dropdown" id="headDrop">
+            <button class="btn-importa" id="btnHeadDrop" onclick="toggleDropdown(event)">
+              Strumenti <span class="chevron">▼</span>
+            </button>
+            <div class="drop-menu" id="dropMenu">
+              <button class="drop-item" onclick="apriModalePnr()">📋 Importa da PNR / GDS</button>
+              <button class="drop-item danger" onclick="pulisciTratte()">🗑 Pulisci tratte volo</button>
+            </div>
+          </div>
         </div>
         <div class="card-body">
           <div class="tratte-wrap">
@@ -675,19 +745,38 @@ input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer;
 <div class="modal-overlay" id="modalePnr" onclick="chiudiModaleSeFuori(event)">
   <div class="modal-box">
     <div class="modal-head">
-      <h2>📋 Importa da PNR / GDS</h2>
+      <h2>Strumenti volo</h2>
       <button class="modal-close" onclick="chiudiModalePnr()">✕</button>
     </div>
     <div class="modal-body">
+
+      <!-- sezione IMPORTA -->
+      <div class="modal-section-title">📋 Importa da PNR / GDS</div>
       <div>
         <label style="display:block;margin-bottom:.4rem">Incolla il testo del PNR (Amadeus) o lo scraping low-cost (Ryanair / EasyJet)</label>
         <textarea id="pnrInput" spellcheck="false"
-          placeholder="Es. Amadeus:&#10; 1.ROSSI/MARIOMR&#10;  3  CA  712 Y 21NOV 6 MXPPVG HK2  1130 0550+1   *1A/E*&#10;  4  CA  837 Y 22NOV 7 PVGKIX HK2  1130 1500   *1A/E*&#10;TOTALS                     EUR    2185.00"></textarea>
+          placeholder="Es. Amadeus:&#10; 1.ROSSI/MARIOMR&#10;  3  CA  712 Y 21NOV 6 MXPPVG HK2  1130 0550+1&#10;  4  CA  837 Y 22NOV 7 PVGKIX HK2  1130 1500&#10;TOTALS                     EUR    2185.00"></textarea>
       </div>
       <div id="pnrPreview" class="pnr-preview"></div>
+
+      <!-- separatore -->
+      <div class="modal-divider"></div>
+
+      <!-- sezione PULISCI -->
+      <div class="modal-section-title">🗑 Pulisci</div>
+      <div class="modal-clean-row">
+        <button class="btn btn-ghost" style="flex:1" onclick="pulisciTratte(); chiudiModalePnr()">
+          Pulisci tratte volo
+        </button>
+        <button class="btn btn-ghost" style="flex:1;color:var(--red);border-color:var(--red)"
+                onclick="pulisciTutto()">
+          Pulisci intera schermata
+        </button>
+      </div>
+
     </div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="chiudiModalePnr()">Annulla</button>
+      <button class="btn btn-ghost" onclick="chiudiModalePnr()">Chiudi</button>
       <button class="btn" style="background:#e8f0fb;color:var(--navy);border:1.5px solid var(--border)"
               onclick="analizzaPnr()">🔍 Analizza</button>
       <button class="btn btn-primary" id="btnConfermaImport" style="display:none"
@@ -1147,8 +1236,24 @@ function parseLowCostPrice(txt) {
   return null;
 }
 
+/* ── DROPDOWN ── */
+function toggleDropdown(e) {
+  e.stopPropagation();
+  const btn  = document.getElementById('btnHeadDrop');
+  const menu = document.getElementById('dropMenu');
+  const open = menu.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+document.addEventListener('click', () => {
+  document.getElementById('dropMenu')?.classList.remove('open');
+  document.getElementById('btnHeadDrop')?.classList.remove('open');
+});
+
 /* ── UI MODAL ── */
 function apriModalePnr() {
+  // chiudi dropdown
+  document.getElementById('dropMenu')?.classList.remove('open');
+  document.getElementById('btnHeadDrop')?.classList.remove('open');
   document.getElementById('modalePnr').classList.add('open');
   document.getElementById('pnrPreview').className = 'pnr-preview';
   document.getElementById('btnConfermaImport').style.display = 'none';
@@ -1158,6 +1263,20 @@ function chiudiModalePnr() {
 }
 function chiudiModaleSeFuori(e) {
   if (e.target === document.getElementById('modalePnr')) chiudiModalePnr();
+}
+
+/* ── PULISCI ── */
+function pulisciTratte() {
+  document.getElementById('righeTratte').innerHTML = '';
+  trattaId = 0;
+  document.getElementById('compagnia').value = '';
+  document.getElementById('bagagli').value   = '';
+  showToast('🗑 Tratte volo svuotate');
+}
+function pulisciTutto() {
+  if (!confirm('Svuotare tutta la schermata?')) return;
+  chiudiModalePnr();
+  resetForm();
 }
 
 function analizzaPnr() {
@@ -1194,42 +1313,54 @@ function analizzaPnr() {
 }
 
 function confermaPnr() {
-  // 1. Svuota tratte esistenti
+  // 1. Svuota tratte e popola
   document.getElementById('righeTratte').innerHTML = '';
   trattaId = 0;
-
-  // 2. Inserisce le tratte parsate
   _parsedFlights.forEach(f => aggiungiTratta(f));
 
-  // 3. Compagnia aerea
+  // 2. Compagnia aerea
   if (_parsedCarrier) document.getElementById('compagnia').value = _parsedCarrier;
 
-  // 4. Aggiorna la riga Volo nei servizi: data da/a + prezzo
-  const svcRows = [...document.querySelectorAll('#righeServizi tr')];
-  const voloRow = svcRows.find(r => r.querySelector('select')?.value === 'Volo');
-  if (voloRow && _parsedFlights.length) {
-    const dates  = _parsedFlights.map(f => f.iso).filter(Boolean).sort();
-    const cells  = voloRow.querySelectorAll('td');
-    if (dates.length) {
-      cells[2].querySelector('input').value = dates[0];            // data da
-      // data a: ultimo volo + eventuali +1
-      const lastFlight = _parsedFlights[_parsedFlights.length - 1];
-      let lastDate = dates[dates.length - 1];
-      if (lastFlight.plusOne) {
-        const d = new Date(lastDate + 'T00:00:00');
-        d.setDate(d.getDate() + 1);
-        lastDate = toISO(d);
-      }
-      cells[3].querySelector('input').value = lastDate;            // data a
+  // 3. Calcola date estreme del viaggio
+  const dates   = _parsedFlights.map(f => f.iso).filter(Boolean).sort();
+  let dateFrom  = dates[0] || '';
+  let dateTo    = '';
+  if (dates.length) {
+    const last = _parsedFlights[_parsedFlights.length - 1];
+    dateTo = dates[dates.length - 1];
+    if (last.plusOne) {
+      const d = new Date(dateTo + 'T00:00:00');
+      d.setDate(d.getDate() + 1);
+      dateTo = toISO(d);
     }
-    if (_parsedPrice != null) {
-      cells[4].querySelector('input').value = _parsedPrice.toFixed(2); // costo netto
-    }
+  }
+
+  // 4. Trova o crea la riga Volo nel tabella servizi
+  let voloRow = [...document.querySelectorAll('#righeServizi tr')]
+    .find(r => r.querySelector('select')?.value === 'Volo');
+
+  if (!voloRow) {
+    // crea nuova riga Volo se non esiste
+    aggiungiServizio({ tipo: 'Volo' });
+    voloRow = [...document.querySelectorAll('#righeServizi tr')]
+      .find(r => r.querySelector('select')?.value === 'Volo');
+  }
+
+  if (voloRow) {
+    const cells = voloRow.querySelectorAll('td');
+    // fornitore = compagnia se vuoto
+    const fornInput = cells[1].querySelector('input');
+    if (!fornInput.value && _parsedCarrier) fornInput.value = _parsedCarrier;
+    // date
+    if (dateFrom) cells[2].querySelector('input').value = dateFrom;
+    if (dateTo)   cells[3].querySelector('input').value = dateTo;
+    // prezzo netto
+    if (_parsedPrice != null) cells[4].querySelector('input').value = _parsedPrice.toFixed(2);
   }
 
   onSvcChange();
   chiudiModalePnr();
-  showToast('✅ PNR importato con successo!');
+  showToast('✅ PNR importato — ' + _parsedFlights.length + ' tratte, costo € ' + (_parsedPrice?.toFixed(2) || '—'));
 }
 
 /* ── TOAST ── */
